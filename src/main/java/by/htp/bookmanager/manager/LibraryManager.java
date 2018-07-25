@@ -73,8 +73,7 @@ public class LibraryManager {
 		if (user instanceof NotUser) {
 			System.out.println("You are not a library user. Ask your librarian for further information");
 		} else if (user instanceof Librarian) {
-			System.out.println("You are logged in as The Librarian");
-
+			librarianInterraction((Librarian) user);
 		} else if (user instanceof User) {
 			userInterraction((User) user);
 		}
@@ -97,6 +96,26 @@ public class LibraryManager {
 				Service.seeBookById();
 			} else if (choice == 2) {
 				Service.seeAllBooks();
+			}
+
+		}
+	}
+	
+	private static void librarianInterraction(Librarian user) {
+		System.out.println("You are logged in as the Librarian");
+		int choice = 0;
+		while (true) {
+			System.out
+					.println("MAIN MENU\nEnter:\n 1-add new book\n 2 -add new reader\n 3 - give the book out \n 4 - get the book back\n  0- exit the library");
+			choice = scanner.nextInt();
+			if (choice == 0) {
+				System.out.println("I HOPE TO SEE YOU SOON!");
+				scanner.close();
+				break;
+			} else if (choice == 1) {
+				Service.addNewBookToLibrary();
+			} else if (choice == 2) {
+				System.out.println("User added "+Service.addNewUser());
 			}
 
 		}

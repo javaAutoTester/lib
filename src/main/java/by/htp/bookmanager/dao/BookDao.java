@@ -6,7 +6,7 @@ import by.htp.bookmanager.entity.Book;
 
 public interface BookDao {
 
-	void create(Book book);
+	void addBook(Book book);
 
 	void update(Book book);
 

@@ -44,9 +44,22 @@ public class BookDaoImplementation implements BookDao {
 	}
 
 	@Override
-	public void create(Book book) {
-		// TODO Auto-generated method stub
+	public void addBook(Book book) {
+		String sql_add_book = "INSERT INTO lib.Books (`title`,`author_name`,`author_surname`) VALUES (?, ?, ?)";
+		Connection conn = dbConn.connect();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql_add_book);
+			ps.setString(1, book.getTitle());
+			ps.setString(2, book.getAuthorName());
+			ps.setString(3, book.getAuthorSurname());
+			ps.executeUpdate();
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbConn.closeConnection(conn);
+		}
 	}
 
 	@Override

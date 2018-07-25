@@ -4,12 +4,14 @@ public abstract class AbstractUser {
 	protected int number;
 	protected String pass;
 	protected String role;
+	protected int emplID;
 
-	public AbstractUser(int number, String pass, String role) {
+	public AbstractUser(int number, String pass, String role, int emplID) {
 		super();
 		this.number = number;
 		this.pass = pass;
 		this.role = role;
+		this.emplID = emplID;
 	}
 
 	public AbstractUser() {
@@ -25,9 +27,9 @@ public abstract class AbstractUser {
 		this.number = number;
 	}
 
-	// public String getPass() {
-	// return pass;
-	// }
+	public String getPass() {
+		return pass;
+	}
 
 	public void setPass(String pass) {
 		this.pass = pass;
@@ -41,9 +43,17 @@ public abstract class AbstractUser {
 		this.role = role;
 	}
 
+	public int getEmplID() {
+		return emplID;
+	}
+
+	public void setEmplID(int emplID) {
+		this.emplID = emplID;
+	}
+
 	@Override
 	public String toString() {
-		return "AbstractUser [number=" + number + ", pass=" + pass + ", role=" + role + "]";
+		return "AbstractUser [number=" + number + ", pass=" + "*****" + ", role=" + role + ", emplID=" + emplID + "]";
 	}
 
 }
