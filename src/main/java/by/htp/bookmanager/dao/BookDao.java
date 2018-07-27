@@ -9,10 +9,10 @@ public interface BookDao {
 
 	void addBook(Book book);
 
-	void update(Book book);
+	List<AbstractItem> selectBookById(int id);
 
-	void delete(int id);
+	List<AbstractItem> selectAllBooks();
 
-	List<AbstractItem> selectAllFromBooks(String sql_statement, int parametr);
+	List<AbstractItem> selectExpiredBooksByUserNumber(int user_number);
 
 }

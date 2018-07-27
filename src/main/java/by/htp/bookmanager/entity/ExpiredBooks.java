@@ -2,7 +2,7 @@ package by.htp.bookmanager.entity;
 
 import java.util.Calendar;
 
-public class ExpiredBooks extends AbstractItem {
+public class ExpiredBooks implements AbstractItem {
 
 	private Calendar takeOutDate;
 	private String title;
@@ -129,9 +129,8 @@ public class ExpiredBooks extends AbstractItem {
 
 	@Override
 	public String toString() {
-		return "ExpiredBooks [takeOutDate=" + takeOutDate.getTime() + ", title=" + title + ", expiredDays="
-				+ expiredDays + ", employeName=" + employeName + ", employeSurname=" + employeSurname
-				+ ", employePhone=" + employePhone + "]";
+		return "ExpiredBooks [Since: " + takeOutDate.getTime() + ", Title:" + title + ", Days over: " + expiredDays
+				+ ", Employe: " + employeName + " " + employeSurname + ", Phone: " + employePhone + "]";
 	}
 
 }

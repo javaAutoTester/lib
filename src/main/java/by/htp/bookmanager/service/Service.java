@@ -14,18 +14,13 @@ import by.htp.bookmanager.entity.AbstractItem;
 import by.htp.bookmanager.entity.Book;
 import by.htp.bookmanager.scanner.ScannerSingleton;
 import by.htp.bookmanager.users.AbstractUser;
-import by.htp.bookmanager.users.NotUser;
 import by.htp.bookmanager.users.User;
 
 public class Service {
-	private static final String SQL_SELECT_BOOK_BY_ID = "SELECT * FROM Books WHERE id = ?";
-	private static final String SQL_SELECT_ALL_BOOK = "SELECT * FROM Books";
-	private static final String SQL_EXPIRED_BOOKS = "SELECT * FROM Books JOIN Book_usage_info ON Books.id = Book_usage_info.id_books WHERE Book_usage_info.number_users = ? AND (to_days(CURRENT_DATE())-to_days(Book_usage_info.takeout_date))>'30'";
 
 	private static Scanner scanner = ScannerSingleton.getScanner();
 
 	public static AbstractUser authentification() {
-		AbstractUser user = new NotUser();
 		int login;
 		String pass;
 		System.out.println("Enter your number --->");
@@ -46,21 +41,21 @@ public class Service {
 			if (book_id == 0) {
 				break;
 			}
-			List<AbstractItem> listBook = bookDao.selectAllFromBooks(SQL_SELECT_BOOK_BY_ID, book_id);
+			List<AbstractItem> listBook = bookDao.selectBookById(book_id);
 			printListOfBooks(listBook);
 		}
 	}
 
 	public static void seeAllBooks() {
 		BookDao bookDao = new BookDaoImplementation();
-		List<AbstractItem> listBook = bookDao.selectAllFromBooks(SQL_SELECT_ALL_BOOK, -1);
+		List<AbstractItem> listBook = bookDao.selectAllBooks();
 		printListOfBooks(listBook);
 	}
 
 	public static void seeAllExpiredBooks(AbstractUser user) {
 		int userNumber = user.getNumber();
 		BookDao bookDao = new BookDaoImplementation();
-		List<AbstractItem> listBook = bookDao.selectAllFromBooks(SQL_EXPIRED_BOOKS, userNumber);
+		List<AbstractItem> listBook = bookDao.selectExpiredBooksByUserNumber(userNumber);
 		if (listBook.size() != 0) {
 			System.out.println("You have expired books!");
 			printListOfBooks(listBook);
@@ -142,6 +137,24 @@ public class Service {
 		UserBookDao userBookDao = new UserBookDaoImplementation();
 		List<AbstractItem> expBooks = userBookDao.expiredBooks();
 		printListOfBooks(expBooks);
+	}
+
+	public static void raitingBooksList() {
+		UserBookDao userBookDao = new UserBookDaoImplementation();
+		List<AbstractItem> ratingList = userBookDao.rateBooks();
+		printListOfBooks(ratingList);
+	}
+
+	public static void userSatatInfo() {
+		int month;
+		int year;
+		System.out.println("Enter MONTH --->");
+		month = scanner.nextInt();
+		System.out.println("Enter YEAR --->");
+		year = scanner.nextInt();
+		UserBookDao userBookDao = new UserBookDaoImplementation();
+		List<AbstractItem> statList = userBookDao.userStat(month, year);
+		printListOfBooks(statList);
 	}
 
 }

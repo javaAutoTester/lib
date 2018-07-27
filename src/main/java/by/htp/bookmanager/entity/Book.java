@@ -1,6 +1,6 @@
 package by.htp.bookmanager.entity;
 
-public class Book extends AbstractItem {
+public class Book implements AbstractItem {
 	private int id;
 	private String title;
 	private String authorName;
@@ -93,8 +93,7 @@ public class Book extends AbstractItem {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author_name=" + authorName + ", author_surname="
-				+ authorSurname + "]";
+		return "Book [ID: " + id + ", Title: " + title + ", Author: " + authorName + " " + authorSurname + "]";
 	}
 
 }

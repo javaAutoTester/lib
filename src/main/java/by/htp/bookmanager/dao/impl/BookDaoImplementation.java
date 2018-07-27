@@ -12,9 +12,27 @@ import by.htp.bookmanager.entity.Book;
 
 public class BookDaoImplementation extends AbstractDaoImplementation implements BookDao {
 
+	@Override
+	public List<AbstractItem> selectBookById(int id) {
+		String sql_select_book_by_id = "SELECT * FROM Books WHERE id = ?";
+		return selectFromBooks(sql_select_book_by_id, id);
+	}
 
 	@Override
-	public List<AbstractItem> selectAllFromBooks(String sql_statement, int parametr) {
+	public List<AbstractItem> selectAllBooks() {
+		String sql_select_all_books = "SELECT * FROM Books";
+		return selectFromBooks(sql_select_all_books, -1);
+	}
+
+	@Override
+	public List<AbstractItem> selectExpiredBooksByUserNumber(int user_number) {
+		String sql_expired_books_by_user_number = "SELECT * FROM Books JOIN Book_usage_info ON Books.id = Book_usage_info.id_books "
+				+ "WHERE Book_usage_info.number_users = ? "
+				+ "AND (to_days(CURRENT_DATE())-to_days(Book_usage_info.takeout_date))>'30' AND Book_usage_info.book_returned = 'N';";
+		return selectFromBooks(sql_expired_books_by_user_number, user_number);
+	}
+
+	private List<AbstractItem> selectFromBooks(String sql_statement, int parametr) {
 
 		Connection conn = connect();
 		Book book = null;
@@ -60,18 +78,6 @@ public class BookDaoImplementation extends AbstractDaoImplementation implements 
 		} finally {
 			closeConnection(conn);
 		}
-	}
-
-	@Override
-	public void update(Book book) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

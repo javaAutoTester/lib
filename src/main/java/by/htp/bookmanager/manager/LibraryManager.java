@@ -55,7 +55,7 @@ public class LibraryManager {
 		int choice = 0;
 		while (true) {
 			System.out.println(
-					"MAIN MENU\nEnter:\n 1-add new book\n 2 -add new reader\n 3 - give the book out \n 4 - get the book back\n 5 - list of expired books\n 0- exit the library");
+					"MAIN MENU\nEnter:\n 1 - add new book\n 2 - add new reader\n 3 - give the book out \n 4 - get the book back\n 5 - list of expired books\n 6 - books raiting\n 7 - users statistics\n 0 - exit the library");
 			choice = scanner.nextInt();
 			if (choice == 0) {
 				System.out.println("I HOPE TO SEE YOU SOON!");
@@ -71,6 +71,10 @@ public class LibraryManager {
 				Service.getBookBack();
 			} else if (choice == 5) {
 				Service.expiredBooksControl();
+			} else if (choice == 6) {
+				Service.raitingBooksList();
+			}else if (choice == 7) {
+				Service.userSatatInfo();
 			}
 
 		}
