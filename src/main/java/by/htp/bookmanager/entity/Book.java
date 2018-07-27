@@ -1,6 +1,6 @@
 package by.htp.bookmanager.entity;
 
-public class Book {
+public class Book extends AbstractItem {
 	private int id;
 	private String title;
 	private String authorName;

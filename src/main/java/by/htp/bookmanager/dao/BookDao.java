@@ -2,6 +2,7 @@ package by.htp.bookmanager.dao;
 
 import java.util.List;
 
+import by.htp.bookmanager.entity.AbstractItem;
 import by.htp.bookmanager.entity.Book;
 
 public interface BookDao {
@@ -12,6 +13,6 @@ public interface BookDao {
 
 	void delete(int id);
 
-	List<Book> selectAllFromBooks(String sql_statement, int parametr);
+	List<AbstractItem> selectAllFromBooks(String sql_statement, int parametr);
 
 }

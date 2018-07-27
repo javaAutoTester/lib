@@ -6,19 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import by.htp.bookmanager.connection.DBConnection;
 import by.htp.bookmanager.dao.BookDao;
+import by.htp.bookmanager.entity.AbstractItem;
 import by.htp.bookmanager.entity.Book;
 
-public class BookDaoImplementation implements BookDao {
+public class BookDaoImplementation extends AbstractDaoImplementation implements BookDao {
 
-	private DBConnection dbConn = new DBConnection();
 
 	@Override
-	public List<Book> selectAllFromBooks(String sql_statement, int parametr) {
-		Connection conn = dbConn.connect();
+	public List<AbstractItem> selectAllFromBooks(String sql_statement, int parametr) {
+
+		Connection conn = connect();
 		Book book = null;
-		List<Book> listBook = new ArrayList<>();
+		List<AbstractItem> listBook = new ArrayList<>();
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql_statement);
 			if (parametr > 0) {
@@ -38,7 +38,7 @@ public class BookDaoImplementation implements BookDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			dbConn.closeConnection(conn);
+			closeConnection(conn);
 		}
 		return listBook;
 	}
@@ -46,7 +46,7 @@ public class BookDaoImplementation implements BookDao {
 	@Override
 	public void addBook(Book book) {
 		String sql_add_book = "INSERT INTO lib.Books (`title`,`author_name`,`author_surname`) VALUES (?, ?, ?)";
-		Connection conn = dbConn.connect();
+		Connection conn = connect();
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql_add_book);
 			ps.setString(1, book.getTitle());
@@ -58,7 +58,7 @@ public class BookDaoImplementation implements BookDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			dbConn.closeConnection(conn);
+			closeConnection(conn);
 		}
 	}
 
